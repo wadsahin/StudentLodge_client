@@ -2,10 +2,37 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
 
-    const { user } = useAuth();
+    const { user, Logout } = useAuth();
+
+    const handleLogout = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to leave.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Logout"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Logout()
+                    .then(() => {
+                        Swal.fire({
+                            title: "Logout!",
+                            text: "Logout successfully",
+                            icon: "success"
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err.code);
+                    })
+            }
+        });
+    }
 
     const navLinks = <div className="flex flex-col lg:flex-row gap-4 font-semibold">
         <NavLink to="/">Home</NavLink>
@@ -84,7 +111,7 @@ const Navbar = () => {
                                     </a>
                                 </li>
                                 <li><Link to="/dashboard"><MdOutlineSpaceDashboard size={20} /> Dashboard</Link></li>
-                                <li><a className="btn btn-error btn-sm text-white">Logout</a></li>
+                                <li><a onClick={handleLogout} className="btn btn-error btn-sm text-white">Logout</a></li>
                             </ul>
                         </div>
                     </> : <>

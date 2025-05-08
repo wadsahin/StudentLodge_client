@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null);
@@ -13,10 +13,15 @@ const AuthProvider = ({children}) => {
 
     // Google login
     const provider = new GoogleAuthProvider();
-
     const loginWithGoogle = () =>{
         setLoading(true);
         return signInWithPopup(auth, provider);
+    };
+
+    // Signout
+    const Logout = () =>{
+        setLoading(true);
+        return signOut(auth);
     }
 
     useEffect(() =>{
@@ -36,6 +41,7 @@ const AuthProvider = ({children}) => {
         loading,
         setLoading,
         loginWithGoogle,
+        Logout,
 
     }
     return (
