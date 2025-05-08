@@ -1,10 +1,11 @@
-
+import banner_img from "../assets/download.png"
 const Banner = () => {
     return (
         <div
-            className="hero h-[480px]"
+            className="hero h-[520px] bg-fixed"
             style={{
-                backgroundImage: "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
+                // backgroundImage: "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
+                backgroundImage: `url(${banner_img})`,
             }}>
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-neutral-content text-center">
@@ -17,8 +18,8 @@ const Banner = () => {
                         <input
                             type="text"
                             placeholder="Type here"
-                            className="input input-bordered input-primary w-full max-w-xs" />
-                        <button className="btn btn-primary">Get Started</button>
+                            className="input input-bordered input-warning w-full max-w-xs text-black" />
+                        <button className="btn btn-warning">Find Meals</button>
                     </div>
                 </div>
             </div>

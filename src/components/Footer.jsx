@@ -1,12 +1,15 @@
 
 const Footer = () => {
     return (
-        <footer className="footer footer-center bg-violet-600 text-white text-lg rounded p-10">
-            <nav className="grid grid-flow-col gap-4">
+        <footer className="footer footer-center bg-neutral text-neutral-content text-lg p-10">
+            <div>
+                <a className="text-2xl font-bold -mb-5">STUDENT <span className="text-orange-400">LODGE</span></a>
+            </div>
+            <nav className="grid grid-flow-col gap-4 font-medium">
                 <a className="link link-hover">About us</a>
                 <a className="link link-hover">Contact</a>
-                <a className="link link-hover">Jobs</a>
-                <a className="link link-hover">Press kit</a>
+                <a className="link link-hover">Meals</a>
+                <a className="link link-hover">Membership</a>
             </nav>
             <nav>
                 <div className="grid grid-flow-col gap-4">
