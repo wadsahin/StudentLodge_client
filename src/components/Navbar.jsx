@@ -1,8 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa";
 
 const Navbar = () => {
 
-    const user = null;
+    const { user } = useAuth();
 
     const navLinks = <div className="flex flex-col lg:flex-row gap-4 font-semibold">
         <NavLink to="/">Home</NavLink>
@@ -33,7 +36,7 @@ const Navbar = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-2xl font-bold">STUDENT <span className="text-orange-400">LODGE</span></a>
+                <a className="btn btn-ghost text-2xl font-bold">STUDENT <span className="text-warning">LODGE</span></a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 text-lg">
@@ -56,10 +59,10 @@ const Navbar = () => {
                                 strokeWidth="2"
                                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
-                        <span className="badge badge-xs badge-primary indicator-item"></span>
+                        <span className="badge badge-xs badge-warning indicator-item"></span>
                     </div>
                 </button>
-                
+
                 {
                     user ? <>
                         {/* profile picture */}
@@ -68,19 +71,20 @@ const Navbar = () => {
                                 <div className="w-10 rounded-full">
                                     <img
                                         alt="Tailwind CSS Navbar component"
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                        src={user?.photoURL} />
                                 </div>
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu menu-sm dropdown-content bg-violet-600 text-white rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                                className="menu menu-sm dropdown-content rounded-lg z-[1] mt-4 w-64 p-2 bg-white text-lg font-medium space-y-1">
                                 <li>
-                                    <a className="justify-between">
-                                        Username
+                                    <a>
+                                        <FaRegUser size={20} />
+                                        {user?.displayName}
                                     </a>
                                 </li>
-                                <li><Link to="/dashboard">Dashboard</Link></li>
-                                <li><a>Logout</a></li>
+                                <li><Link to="/dashboard"><MdOutlineSpaceDashboard size={20} /> Dashboard</Link></li>
+                                <li><a className="btn btn-error btn-sm text-white">Logout</a></li>
                             </ul>
                         </div>
                     </> : <>

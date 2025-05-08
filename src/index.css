@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .navbar .active{
-    background-color: orange;
+    background-color: #FFBE00;
     padding: 0px 5px;
     border-radius: 5px;
 }
