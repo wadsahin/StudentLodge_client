@@ -10,6 +10,7 @@ import Meals from "../pages/meal/Meals";
 import Signup from "../pages/auth/Signup";
 import Login from "../pages/auth/Login";
 import MealDetails from "../pages/meal/MealDetails";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 
   
@@ -49,6 +50,15 @@ import MealDetails from "../pages/meal/MealDetails";
         },
       ]
     },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          path: "/dashboard",
+        }
+      ]
+    }
   ]);
 
   export default router;

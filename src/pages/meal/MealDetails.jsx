@@ -6,12 +6,17 @@ import { FaStar } from "react-icons/fa";
 import { FaPersonDotsFromLine } from "react-icons/fa6";
 import { GiHotMeal } from "react-icons/gi";
 import { IoMdTime } from "react-icons/io";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
+import { useState } from "react";
 
 const MealDetails = () => {
-    // const [likeDone, setLikeDone] = useState(false);
+    const [savedUser, setSaveUser] = useState(null);
+    console.log(savedUser);
+    const { user } = useAuth();
     const { mealId } = useParams();
+    const navigate = useNavigate();
 
     const { refetch, data: meal = [] } = useQuery({
         queryKey: ['meal'],
@@ -21,28 +26,74 @@ const MealDetails = () => {
         }
     });
 
-    const { title, desc, price, ingredients, image, rating, postedTime, like } = meal;
+    const { _id, title, desc, price, ingredients, image, rating, postedTime, likes, reviews_count } = meal;
 
     // Handle Like Button
-    const handleLikeCount = async () => {
-        const res = await axios.put(`http://localhost:5000/like-count/${mealId}`);
-        if (res.data.modifiedCount > 0) {
-            // alert("Thanks for your reaction.");
-            Swal.fire({
-                // title: "Good job!",
-                text: "Thanks for your like reaction.",
-                icon: "success"
-            });
-            refetch();
+    const handleLikesCount = async () => {
+        if (user) {
+            const res = await axios.put(`http://localhost:5000/likes-count/${mealId}`);
+            if (res.data.modifiedCount > 0) {
+                // alert("Thanks for your reaction.");
+                Swal.fire({
+                    // title: "Good job!",
+                    text: "Thanks for your like reaction.",
+                    icon: "success"
+                });
+                refetch();
+            }
         }
+        else {
+            navigate("/auth/login");
+        }
+
     }
 
-    const handleReviewPost = (e) => {
+    const handleReviewsCountAndPost = async (e) => {
         e.preventDefault();
-        const review = e.target.review.value;
-        console.log(review);
-    }
 
+        const review = e.target.review.value;
+        // console.log(review);
+        const newReview = {
+            username: user?.displayName,
+            userEmail: user?.email,
+            review,
+            meal_id: _id,
+            title,
+            likes,
+            reviews_count: reviews_count || 0,
+        }
+
+        // Send review in server to save in db
+        const res = await axios.post("http://localhost:5000/reviews", newReview);
+        if (res.data?.insertedId) {
+            // update the reviews_count
+            const res = await axios.put(`http://localhost:5000/reviews-count/${mealId}`);
+            if (res.data.modifiedCount > 0) {
+                Swal.fire({
+                    // title: "Good job!",
+                    text: "Thanks for your feedback.",
+                    icon: "success"
+                });
+                refetch();
+                e.target.reset();
+            }
+        }
+    };
+
+    // handle request meal
+    const handleRequestMeal = async () => {
+        console.log("handle request btn click")
+        console.log(user?.email)
+        const res = await axios.get(`http://localhost:5000/user?email=${user?.email}`);
+        console.log(res.data);
+        const savedUser = res.data;
+        if (savedUser.badge == "silver" && savedUser.badge == "gole" && savedUser.badge == "platinun") {
+            console.log("your can send a meal request")
+        } else {
+            console.log("your can't send a meal request")
+        }
+
+    }
 
     return (
         <div className="card card-compact sm:w-10/12 md:w-8/12 mx-auto my-5 border border-base-300">
@@ -78,18 +129,19 @@ const MealDetails = () => {
                 <hr />
                 <div className="flex">
                     <div className="card-actions flex-1">
-                        <button onClick={handleLikeCount} className="btn"><BiSolidLike size={24} />{like}</button>
+                        <button onClick={handleLikesCount} className="btn"><BiSolidLike size={24} />{likes}</button>
                         <button className="btn"><BiSolidCommentDots size={24} />
-                            0</button>
-                        <button className="btn"><GiHotMeal size={20} /> Request Meal</button>
+                            {reviews_count}
+                        </button>
+                        <button onClick={handleRequestMeal} className="btn"><GiHotMeal size={20} /> Request Meal</button>
                     </div>
                     <div className="flex-1">
-                        <form onSubmit={handleReviewPost} className="">
+                        <form onSubmit={handleReviewsCountAndPost} className="">
                             <div className="form-control mb-2">
                                 <label className="label">
                                     <span className="label-text text-base font-medium">Please give a review.</span>
                                 </label>
-                                <textarea name="review" rows={4} cols={20} className="w-full border p-2" id="" placeholder="Write your feedback"></textarea>
+                                <textarea name="review" rows={4} cols={20} className="w-full border p-2" id="" placeholder="Write your feedback" required></textarea>
                             </div>
                             <input className="btn btn-warning btn-sm" type="submit" value="Post" />
                         </form>

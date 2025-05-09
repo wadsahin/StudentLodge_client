@@ -3,6 +3,7 @@ import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Signup = () => {
     const { createUser, profileUpdate } = useAuth();
@@ -20,21 +21,27 @@ const Signup = () => {
         const password = data.password;
         const photo = data.photo;
         const role = "user";
-        const badge = "Bronze";
-        const newUser = { name, email, password, photo, role, badge };
+        const badge = "bronze";
         // console.log(newUser);
         createUser(email, password)
             .then(result => {
                 if (result.user) {
-
+                    const createdAt = result.user?.metadata.createdAt;
+                    // console.log(createdAt)
                     // update profile now
                     profileUpdate({ displayName: name, photoURL: photo })
-                        .then(() => {
-                            Swal.fire({
-                                title: "Signup successfull!",
-                                text: "Successfully created an account",
-                                icon: "success"
-                            });
+                        .then(async () => {
+                            // Save user in database
+                            const newUser = { name, email, password, photo, role, badge, createdAt };
+                            const res = await axios.post("http://localhost:5000/users", newUser);
+                            if (res.data?.insertedId) {
+                                Swal.fire({
+                                    title: "Signup successfull!",
+                                    text: "Successfully created an account",
+                                    icon: "success"
+                                });
+                            }
+
                         })
                         .catch(err => {
                             console.log("profile update error:", err.message);

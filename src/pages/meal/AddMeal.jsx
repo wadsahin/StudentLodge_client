@@ -10,9 +10,11 @@ const AddMeal = () => {
         const ingredients = form.ingredients.value;
         const image = form.image.value;
         const rating = 0;
+        const likes = 0;
+        const reviews_count = 0;
         const postedTime = Date.now();
 
-        const newMeal = {title, desc, category, price, ingredients, image, rating, postedTime};
+        const newMeal = {title, desc, category, price, ingredients, image, rating, likes, reviews_count, postedTime};
         // console.log(newMeal);
         // Save in database
         fetch("http://localhost:5000/add-meal", {
