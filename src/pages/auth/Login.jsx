@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
+    const { loginWithEmailPassword } = useAuth();
     const {
         register,
         handleSubmit,
@@ -11,10 +14,22 @@ const Login = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
         const email = data?.email;
         const password = data?.password;
-        console.log({ email, password })
+        // console.log({ email, password })
+        loginWithEmailPassword(email, password)
+            .then(result => {
+                if (result.user) {
+                    Swal.fire({
+                        title: "Login successfull!",
+                        text: "Successfully logged In",
+                        icon: "success"
+                    });
+                }
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
 
     }
 

@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null);
@@ -10,6 +10,26 @@ const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
     console.log(user);
+
+    // signup with email & password
+    const createUser = (email, password) =>{
+        setLoading(true);
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
+
+    // update profile(add username, photo)
+    const profileUpdate = (userInfo) =>{
+        setLoading(true);
+        return updateProfile(auth.currentUser, userInfo);
+    }
+
+    // login with email & password
+    const loginWithEmailPassword = (email, password) =>{
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password);
+    }
+
+
 
     // Google login
     const provider = new GoogleAuthProvider();
@@ -40,9 +60,11 @@ const AuthProvider = ({children}) => {
         setUser,
         loading,
         setLoading,
+        createUser,
+        profileUpdate,
+        loginWithEmailPassword,
         loginWithGoogle,
         Logout,
-
     }
     return (
         <AuthContext.Provider value={authIfo}>
