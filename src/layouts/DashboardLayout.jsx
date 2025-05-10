@@ -18,7 +18,7 @@ const DashboardLayout = () => {
         <div>
             <Navbar></Navbar>
             <div className='flex min-h-screen pt-20'>
-                <div className="w-[300px] px-3 border bg-base-300">
+                <div className="w-[300px] px-3 border bg-orange-100">
                     <div>
                         <h2 className="text-3xl font-semibold py-2 border-b-2 border-black rounded-lg mb-3 flex items-center justify-center gap-2">
                             <MdDashboard size={26} />
@@ -70,7 +70,7 @@ const DashboardLayout = () => {
                         </ul>
                     </div>
                 </div>
-                <div className="flex-grow">
+                <div className="flex-grow p-5">
                     <Outlet></Outlet>
                 </div>
             </div>
