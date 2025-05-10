@@ -11,6 +11,7 @@ import Signup from "../pages/auth/Signup";
 import Login from "../pages/auth/Login";
 import MealDetails from "../pages/meal/MealDetails";
 import DashboardLayout from "../layouts/DashboardLayout";
+import PrivateRouter from "./PrivateRouter";
 
 
   
@@ -52,7 +53,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
     },
     {
       path: "/dashboard",
-      element: <DashboardLayout />,
+      element: <PrivateRouter><DashboardLayout /></PrivateRouter>,
       children: [
         {
           path: "/dashboard",

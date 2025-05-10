@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
@@ -6,6 +6,10 @@ import Swal from "sweetalert2";
 
 const Login = () => {
     const { loginWithEmailPassword } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const path = location.state?.from || "/";
+    // console.log("login",location, from);
     const {
         register,
         handleSubmit,
@@ -25,6 +29,7 @@ const Login = () => {
                         text: "Successfully logged In",
                         icon: "success"
                     });
+                    navigate(path);
                 }
             })
             .catch(err => {
