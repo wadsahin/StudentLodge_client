@@ -1,8 +1,9 @@
+import DashboardHeading from "../../../components/dashboardHeading";
 
 const PaymentHistory = () => {
     return (
         <div>
-            PaymentHistory
+            <DashboardHeading title="My Payment History" />
         </div>
     );
 };

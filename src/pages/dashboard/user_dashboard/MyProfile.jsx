@@ -6,6 +6,7 @@ const MyProfile = () => {
     return (
         <div className="w-full">
             <DashboardHeading title="My Profile" />
+            
             <div className="card card-compact w-2/3 mx-auto shadow bg-orange-100 p-5">
                 <figure className="relative w-44 mx-auto">
                     <img
@@ -20,6 +21,7 @@ const MyProfile = () => {
                     
                 </div>
             </div>
+
         </div>
     );
 };

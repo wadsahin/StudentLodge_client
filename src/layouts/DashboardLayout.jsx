@@ -11,7 +11,7 @@ import { IoIosRestaurant } from "react-icons/io";
 const DashboardLayout = () => {
     const { user } = useAuth();
     const profileAvatar = "https://img.icons8.com/?size=100&id=SZm6AjmdRxl4&format=png&color=000000";
-    const userRole = "user";
+    const userRole = "admin";
 
 
     return (
