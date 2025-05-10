@@ -5,7 +5,7 @@ import { FaRegUser } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
-
+    const profileAvatar = "https://img.icons8.com/?size=100&id=SZm6AjmdRxl4&format=png&color=000000";
     const { user, Logout } = useAuth();
 
     const handleLogout = () => {
@@ -97,8 +97,8 @@ const Navbar = () => {
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
                                     <img
-                                        alt="Tailwind CSS Navbar component"
-                                        src={user?.photoURL} />
+                                        alt="Profile"
+                                        src={user?.photoURL ? user?.photoURL : profileAvatar} />
                                 </div>
                             </div>
                             <ul

@@ -10,7 +10,10 @@ import { IoIosRestaurant } from "react-icons/io";
 
 const DashboardLayout = () => {
     const { user } = useAuth();
+    const profileAvatar = "https://img.icons8.com/?size=100&id=SZm6AjmdRxl4&format=png&color=000000";
     const userRole = "user";
+
+
     return (
         <div>
             <Navbar></Navbar>
@@ -27,7 +30,7 @@ const DashboardLayout = () => {
                         </h2>
                         <div className="my-3 flex items-center gap-3">
                             <span>
-                                <img className="w-16 h-16 rounded-full" src={user?.photoURL} alt="" />
+                                <img className="w-14 h-14 rounded-full" src={user?.photoURL ? user?.photoURL : profileAvatar} alt="" />
                             </span>
                             <span>
                                 <p className="text-xl font-semibold">{user?.displayName}</p>
@@ -42,32 +45,32 @@ const DashboardLayout = () => {
                                 userRole === 'admin' && <>
                                     <h4 className="text-xl font-bold mb-3">User</h4>
                                     <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <CgProfile size={22} /><span className="text-gray-700">Admin Profile</span></NavLink></li>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <FaUsersGear size={22} /><span className="text-gray-700">Manage Users</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/manage-users" className="font-medium flex items-center gap-2 mb-4"> <FaUsersGear size={22} /><span className="text-gray-700">Manage Users</span></NavLink></li>
                                     <h4 className="text-xl font-bold mb-3">Meals</h4>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <GiMeal size={22} /><span className="text-gray-700">All Meals</span></NavLink></li>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <MdOutlineRamenDining size={22} /><span className="text-gray-700">Serve Meals</span></NavLink></li>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <IoIosRestaurant size={22} /><span className="text-gray-700">Upcoming Meals</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/all-meals" className="font-medium flex items-center gap-2 mb-4"> <GiMeal size={22} /><span className="text-gray-700">All Meals</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/serve-meals" className="font-medium flex items-center gap-2 mb-4"> <MdOutlineRamenDining size={22} /><span className="text-gray-700">Serve Meals</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/upcoming-meals" className="font-medium flex items-center gap-2 mb-4"> <IoIosRestaurant size={22} /><span className="text-gray-700">Upcoming Meals</span></NavLink></li>
                                     <h4 className="text-xl font-bold mb-3">Reviews</h4>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <MdOutlineRateReview size={22} /><span className="text-gray-700">All Reviews</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/all-reviews" className="font-medium flex items-center gap-2 mb-4"> <MdOutlineRateReview size={22} /><span className="text-gray-700">All Reviews</span></NavLink></li>
 
                                 </>
                             }
                             {
                                 userRole === "user" && <>
                                     <h4 className="text-xl font-bold mb-3">Profile</h4>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <CgProfile size={22} /><span className="text-gray-700">My Profile</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/my-profile" className="font-medium flex items-center gap-2 mb-4"> <CgProfile size={22} /><span className="text-gray-700">My Profile</span></NavLink></li>
                                     <h4 className="text-xl font-bold mb-3">Reviews</h4>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <MdOutlineRateReview size={22} /><span className="text-gray-700">My Reviews</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/my-reviews" className="font-medium flex items-center gap-2 mb-4"> <MdOutlineRateReview size={22} /><span className="text-gray-700">My Reviews</span></NavLink></li>
                                     <h4 className="text-xl font-bold mb-3">Meals</h4>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <GiMeal size={22} /><span className="text-gray-700">Requested Meals</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/requested-meals" className="font-medium flex items-center gap-2 mb-4"> <GiMeal size={22} /><span className="text-gray-700">Requested Meals</span></NavLink></li>
                                     <h4 className="text-xl font-bold mb-3">Payment</h4>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <FaMoneyCheckDollar size={22} /><span className="text-gray-700">Payment History</span></NavLink></li>
+                                    <li><NavLink to="/dashboard/payment-history" className="font-medium flex items-center gap-2 mb-4"> <FaMoneyCheckDollar size={22} /><span className="text-gray-700">Payment History</span></NavLink></li>
                                 </>
                             }
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div className="flex-grow">
                     <Outlet></Outlet>
                 </div>
             </div>

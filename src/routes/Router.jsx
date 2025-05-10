@@ -12,6 +12,10 @@ import Login from "../pages/auth/Login";
 import MealDetails from "../pages/meal/MealDetails";
 import DashboardLayout from "../layouts/DashboardLayout";
 import PrivateRouter from "./PrivateRouter";
+import MyProfile from "../pages/dashboard/user_dashboard/MyProfile";
+import MyReviews from "../pages/dashboard/user_dashboard/MyReviews";
+import RequestedMeals from "../pages/dashboard/user_dashboard/RequestedMeals";
+import PaymentHistory from "../pages/dashboard/user_dashboard/PaymentHistory";
 
 
   
@@ -56,8 +60,21 @@ import PrivateRouter from "./PrivateRouter";
       element: <PrivateRouter><DashboardLayout /></PrivateRouter>,
       children: [
         {
-          path: "/dashboard",
-        }
+          path: "/dashboard/my-profile",
+          element: <MyProfile />
+        },
+        {
+          path: "/dashboard/my-reviews",
+          element: <MyReviews />
+        },
+        {
+          path: "/dashboard/requested-meals",
+          element: <RequestedMeals />
+        },
+        {
+          path: "/dashboard/payment-history",
+          element: <PaymentHistory />
+        },
       ]
     }
   ]);
