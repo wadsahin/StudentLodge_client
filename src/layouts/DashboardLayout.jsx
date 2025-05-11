@@ -1,50 +1,34 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import useAuth from "../hooks/useAuth";
 import { MdDashboard, MdOutlineRamenDining, MdOutlineRateReview } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { FaMoneyCheckDollar, FaUsersGear } from "react-icons/fa6";
 import { GiMeal } from "react-icons/gi";
 import { IoIosRestaurant } from "react-icons/io";
+import DashboardNavbar from "../components/DashboardNavbar";
+import { IoHomeOutline } from "react-icons/io5";
+// import useAuth from "../hooks/useAuth";
+import useUser from "../hooks/useUser";
 
 const DashboardLayout = () => {
-    const { user } = useAuth();
-    const profileAvatar = "https://img.icons8.com/?size=100&id=SZm6AjmdRxl4&format=png&color=000000";
-    const userRole = "admin";
-
+    const [user] = useUser();
+    // const profileAvatar = "https://img.icons8.com/?size=100&id=SZm6AjmdRxl4&format=png&color=000000";    
+    // console.log("DashboardLayout", user?.role);
 
     return (
         <div>
-            <Navbar></Navbar>
-            <div className='flex min-h-screen pt-20'>
-                <div className="w-[300px] px-3 border bg-orange-100">
+            <div className='flex min-h-screen'>
+                <div className="w-[300px] border-r-2 ">
                     <div>
-                        <h2 className="text-3xl font-semibold py-2 border-b-2 border-black rounded-lg mb-3 flex items-center justify-center gap-2">
-                            <MdDashboard size={26} />
-                            <span>
-                                {
-                                    userRole === 'admin' ? "Admin Panel" : "User Panel"
-                                }
-                            </span>
-                        </h2>
-                        <div className="my-3 flex items-center gap-3">
-                            <span>
-                                <img className="w-14 h-14 rounded-full" src={user?.photoURL ? user?.photoURL : profileAvatar} alt="" />
-                            </span>
-                            <span>
-                                <p className="text-xl font-semibold">{user?.displayName}</p>
-                                <span className="badge badge-outline">{userRole}</span>
-                            </span>
+                        <div className="py-[17px] pl-5 border-b">
+                            <a className="text-2xl font-bold">STUDENT <span className="text-warning">LODGE</span></a>
                         </div>
                     </div>
-                    <hr className="border border-black" />
-                    <div className="my-2">
+                    <div className="my-2 pl-3">
                         <ul>
                             {
-                                userRole === 'admin' && <>
+                                user?.role === 'admin' && <>
                                     <h4 className="text-xl font-bold mb-3">User</h4>
-                                    <li><NavLink to="/dashboard/admin-profile" className="font-medium flex items-center gap-2 mb-4"> <CgProfile size={22} /><span className="text-gray-700">Admin Profile</span></NavLink></li>
+                                    <li><NavLink to="/dashboard" className="font-medium flex items-center gap-2 mb-4"> <CgProfile size={22} /><span className="text-gray-700">Admin Profile</span></NavLink></li>
                                     <li><NavLink to="/dashboard/manage-users" className="font-medium flex items-center gap-2 mb-4"> <FaUsersGear size={22} /><span className="text-gray-700">Manage Users</span></NavLink></li>
                                     <h4 className="text-xl font-bold mb-3">Meals</h4>
                                     <li><NavLink to="/dashboard/all-meals" className="font-medium flex items-center gap-2 mb-4"> <GiMeal size={22} /><span className="text-gray-700">All Meals</span></NavLink></li>
@@ -56,9 +40,9 @@ const DashboardLayout = () => {
                                 </>
                             }
                             {
-                                userRole === "user" && <>
+                                user?.role === "user" && <>
                                     <h4 className="text-xl font-bold mb-3">Profile</h4>
-                                    <li><NavLink to="/dashboard/my-profile" className="font-medium flex items-center gap-2 mb-4"> <CgProfile size={22} /><span className="text-gray-700">My Profile</span></NavLink></li>
+                                    <li><NavLink to="/dashboard" className="font-medium flex items-center gap-2 mb-4"> <CgProfile size={22} /><span className="text-gray-700">My Profile</span></NavLink></li>
                                     <h4 className="text-xl font-bold mb-3">Reviews</h4>
                                     <li><NavLink to="/dashboard/my-reviews" className="font-medium flex items-center gap-2 mb-4"> <MdOutlineRateReview size={22} /><span className="text-gray-700">My Reviews</span></NavLink></li>
                                     <h4 className="text-xl font-bold mb-3">Meals</h4>
@@ -67,14 +51,22 @@ const DashboardLayout = () => {
                                     <li><NavLink to="/dashboard/payment-history" className="font-medium flex items-center gap-2 mb-4"> <FaMoneyCheckDollar size={22} /><span className="text-gray-700">Payment History</span></NavLink></li>
                                 </>
                             }
+                            {/* Go to home */}
+                            <li className="flex items-center gap-1 text-lg font-semibold">
+                                <IoHomeOutline />
+                                <Link to="/">Home</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <div className="flex-grow p-5">
-                    <Outlet></Outlet>
+                <div className="flex-grow">
+                    <DashboardNavbar />
+                    <div className="p-3 bg-gray-100 min-h-screen">
+                        <Outlet></Outlet>
+                    </div>
                 </div>
             </div>
-            <Footer></Footer>
+            {/* <Footer></Footer> */}
         </div>
     );
 };

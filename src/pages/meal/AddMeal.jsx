@@ -1,6 +1,11 @@
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AddMeal = () => {
-    const handleAddMeal = e =>{
+
+    const navigate = useNavigate();
+
+    const handleAddMeal = e => {
         e.preventDefault();
         const form = e.target;
         const title = form.title.value;
@@ -14,7 +19,7 @@ const AddMeal = () => {
         const reviews_count = 0;
         const postedTime = Date.now();
 
-        const newMeal = {title, desc, category, price, ingredients, image, rating, likes, reviews_count, postedTime};
+        const newMeal = { title, desc, category, price, ingredients, image, rating, likes, reviews_count, postedTime };
         // console.log(newMeal);
         // Save in database
         fetch("http://localhost:5000/add-meal", {
@@ -24,12 +29,17 @@ const AddMeal = () => {
             },
             body: JSON.stringify(newMeal),
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.insertedId){
-                alert("Meal added successfully");
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: "Added!",
+                        text: "A new meal added successfully.",
+                        icon: "success"
+                    });
+                    navigate("/dashboard/all-meals");
+                }
+            })
     }
     return (
         <div className="card bg-base-100 w-full max-w-4xl mx-auto">

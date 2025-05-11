@@ -22,6 +22,8 @@ import AllReviews from "../pages/dashboard/admin_dashboard/AllReviews";
 import ServeMeals from "../pages/dashboard/admin_dashboard/ServeMeals";
 import AllMeals from "../pages/dashboard/admin_dashboard/AllMeals";
 import ManageUsers from "../pages/dashboard/admin_dashboard/ManageUsers";
+import Membership from "../components/Membership";
+import AdminRoutes from "./AdminRoutes";
 
 
 
@@ -44,8 +46,12 @@ const router = createBrowserRouter([
         element: <MealDetails />
       },
       {
-        path: "/add-meal",
-        element: <AddMeal></AddMeal>
+        path: "/admin/add-meal",
+        element: <PrivateRouter><AddMeal /></PrivateRouter>
+      },
+      {
+        path: "/purchase-membership",
+        element: <Membership />
       },
       {
         path: "/checkout/:pkgname",
@@ -67,8 +73,8 @@ const router = createBrowserRouter([
     children: [
       // admin routes
       {
-        path: "/dashboard/admin-profile",
-        element: <AdminProifile />,
+        path: "/dashboard",
+        element: <PrivateRouter><AdminRoutes><AdminProifile /></AdminRoutes></PrivateRouter>,
         loader: () => fetch("http://localhost:5000/meals"),
       },
       {
@@ -93,8 +99,8 @@ const router = createBrowserRouter([
       },
       // User routes
       {
-        path: "/dashboard/my-profile",
-        element: <MyProfile />
+        path: "/dashboard",
+        element: <PrivateRouter><AdminRoutes><MyProfile /></AdminRoutes></PrivateRouter>
       },
       {
         path: "/dashboard/my-reviews",

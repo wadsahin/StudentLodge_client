@@ -1,7 +1,10 @@
+import DashboardHeading from "../../../components/dashboardHeading";
+
 const UpcomingMeals = () => {
     return (
         <div>
-            UpcomingMeals
+            <DashboardHeading title="Upcoming Meals" />
+
         </div>
     );
 };

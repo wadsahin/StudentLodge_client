@@ -8,24 +8,24 @@ import { GiHotMeal } from "react-icons/gi";
 import { IoMdTime } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/useAuth";
-import { useState } from "react";
+import useUser from "../../hooks/useUser";
 
 const MealDetails = () => {
-    const [savedUser, setSaveUser] = useState(null);
-    console.log(savedUser);
-    const { user } = useAuth();
+    // const [savedUser, setSaveUser] = useState(null);
+    // console.log(savedUser);
+    // const { user } = useAuth();
+    const [user] = useUser();
     const { mealId } = useParams();
     const navigate = useNavigate();
 
-    const { refetch, data: meal = [] } = useQuery({
+    // Single meal data load
+    const { refetch: mealRefetch, data: meal = [] } = useQuery({
         queryKey: ['meal'],
         queryFn: async () => {
             const res = await axios.get(`http://localhost:5000/meal/${mealId}`);
             return res.data;
         }
     });
-
     const { _id, title, desc, price, ingredients, image, rating, postedTime, likes, reviews_count } = meal;
 
     // Handle Like Button
@@ -39,7 +39,7 @@ const MealDetails = () => {
                     text: "Thanks for your like reaction.",
                     icon: "success"
                 });
-                refetch();
+                mealRefetch();
             }
         }
         else {
@@ -62,7 +62,6 @@ const MealDetails = () => {
             likes,
             reviews_count: reviews_count || 0,
         }
-
         // Send review in server to save in db
         const res = await axios.post("http://localhost:5000/reviews", newReview);
         if (res.data?.insertedId) {
@@ -74,7 +73,7 @@ const MealDetails = () => {
                     text: "Thanks for your feedback.",
                     icon: "success"
                 });
-                refetch();
+                mealRefetch();
                 e.target.reset();
             }
         }
@@ -82,15 +81,46 @@ const MealDetails = () => {
 
     // handle request meal
     const handleRequestMeal = async () => {
-        console.log("handle request btn click")
-        console.log(user?.email)
-        const res = await axios.get(`http://localhost:5000/user?email=${user?.email}`);
-        console.log(res.data);
-        const savedUser = res.data;
-        if (savedUser.badge == "silver" && savedUser.badge == "gole" && savedUser.badge == "platinun") {
-            console.log("your can send a meal request")
+        // console.log("handle request btn click");
+
+        // if (user?.badge == "silver" && user?.badge == "gole" && user?.badge == "platinun") {
+        //     console.log("your can send a meal request")
+        // } else {
+        //     Swal.fire({
+        //         // title: "Good job!",
+        //         text: "You need to purchase a premium package.",
+        //         icon: "warning",
+        //     });
+        //     navigate("/purchase-membership");
+        // }
+        //  const { _id, title, desc, price, ingredients, image, rating, postedTime, likes, reviews_count } = meal;
+        // console.log(user);
+
+        if (user) {
+            const requestedMeals = {
+                user_name: user?.name,
+                user_email: user?.email,
+                meal_id: _id,
+                meal_img: image,
+                title,
+                likes,
+                reviews_count,
+                status: "pending",
+            };
+
+            // Save send server & save in db
+            const res = await axios.post("http://localhost:5000/requested-meals", requestedMeals);
+            if (res.data.insertedId) {
+                // console.log(res.data);
+                Swal.fire({
+                    title: "Meal request sent successfully",
+                    // text: "Logout successfully",
+                    icon: "success"
+                });
+            }
+
         } else {
-            console.log("your can't send a meal request")
+            navigate("/auth/login");
         }
 
     }

@@ -4,6 +4,7 @@ import MealsCategories from "../components/MealsCategories";
 import Membership from "../components/Membership";
 import Feedback from "../components/additional/Feedback";
 import Faq from "../components/additional/Faq";
+import AdminRoutes from "../routes/AdminRoutes";
 
 const Home = () => {
     const loadedMeals = useLoaderData();

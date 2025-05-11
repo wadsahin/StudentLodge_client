@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
@@ -6,7 +6,8 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 const Signup = () => {
-    const { createUser, profileUpdate } = useAuth();
+    const { createUser, profileUpdate, setLoading, } = useAuth();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -25,7 +26,7 @@ const Signup = () => {
         // console.log(newUser);
         createUser(email, password)
             .then(result => {
-                if (result.user) {
+                if (result?.user) {
                     const createdAt = result.user?.metadata.createdAt;
                     // console.log(createdAt)
                     // update profile now
@@ -35,11 +36,14 @@ const Signup = () => {
                             const newUser = { name, email, password, photo, role, badge, createdAt };
                             const res = await axios.post("http://localhost:5000/users", newUser);
                             if (res.data?.insertedId) {
+                                // setUser(result?.user);
+                                setLoading(false);
                                 Swal.fire({
                                     title: "Signup successfull!",
                                     text: "Successfully created an account",
                                     icon: "success"
                                 });
+                                navigate("/");
                             }
 
                         })
@@ -52,6 +56,12 @@ const Signup = () => {
             })
             .catch(err => {
                 console.log(err.message);
+                setLoading(false);
+                Swal.fire({
+                    title: "Oops!",
+                    text: `${err.message}`,
+                    icon: "error"
+                });
             })
 
     }

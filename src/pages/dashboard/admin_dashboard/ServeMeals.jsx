@@ -1,7 +1,10 @@
+import DashboardHeading from "../../../components/dashboardHeading";
+
 const ServeMeals = () => {
     return (
         <div>
-            ServeMeals
+            <DashboardHeading title="Serve Meals" />
+            
         </div>
     );
 };

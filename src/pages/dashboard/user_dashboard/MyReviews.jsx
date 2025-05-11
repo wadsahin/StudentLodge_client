@@ -73,9 +73,9 @@ const MyReviews = () => {
                     <Link
                         // onClick={() => handleViewMeal(row._id)}
                         to={`/meal/${row.meal_id}`}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                        className="bg-blue-500 text-white px-3 py-1 rounded"
                     >
-                        view
+                        View
                     </Link>
                 </div>
             )
@@ -86,7 +86,7 @@ const MyReviews = () => {
                 <div>
                     <button
                         onClick={() => handleEdit(row._id)}
-                        className="btn btn-sm btn-warning hover:bg-blue-600 text-white px-3 py-1 rounded"
+                        className="btn btn-sm bg-[#F1D302] text-white px-3 py-1 rounded"
                     >
                         Edit
                     </button>
@@ -99,9 +99,9 @@ const MyReviews = () => {
                 <div>
                     <button
                         onClick={() => handleDelete(row._id)}
-                        className="btn btn-sm btn-error hover:bg-blue-600 text-white px-3 py-1 rounded"
+                        className="btn btn-sm bg-red-600 text-white px-3 py-1 rounded"
                     >
-                        Delete
+                        X
                     </button>
                 </div>
             )

@@ -4,8 +4,6 @@ import MealCard from "../../components/MealCard";
 const Meals = () => {
     const [meals, setMeals] = useState([]);
 
-    console.log(meals)
-
     useEffect(() => {
         fetch("http://localhost:5000/meals")
             .then(res => res.json())
@@ -13,9 +11,6 @@ const Meals = () => {
                 setMeals(data);
             })
     }, []);
-
-    console.log(meals)
-
 
     return (
         <div className="mx-5 md:mx-20 grid grid-cols-3 gap-5 my-6">
