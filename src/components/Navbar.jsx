@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { MdLogout, MdOutlineSpaceDashboard } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import Swal from "sweetalert2";
 
@@ -66,7 +66,7 @@ const Navbar = () => {
                 <a className="btn btn-ghost text-2xl font-bold">STUDENT <span className="text-warning">LODGE</span></a>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1 text-lg">
+                <ul className="menu menu-horizontal px-1 text-base">
                     {navLinks}
                 </ul>
             </div>
@@ -111,7 +111,7 @@ const Navbar = () => {
                                     </a>
                                 </li>
                                 <li><Link to="/dashboard"><MdOutlineSpaceDashboard size={20} /> Dashboard</Link></li>
-                                <li><a onClick={handleLogout} className="btn btn-error btn-sm text-white">Logout</a></li>
+                                <li><a onClick={handleLogout} className="btn btn-error btn-sm text-white"><MdLogout size={18} /> Logout</a></li>
                             </ul>
                         </div>
                     </> : <>

@@ -11,7 +11,7 @@ const Root = () => {
         return <Loading />
     }
     return (
-        <div>
+        <div className="font-poppines">
             <Navbar></Navbar>
             <div className='min-h-screen pt-20'>
                 <Outlet></Outlet>

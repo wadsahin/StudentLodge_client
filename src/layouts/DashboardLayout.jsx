@@ -15,7 +15,7 @@ const DashboardLayout = () => {
     // console.log("DashboardLayout", user?.role);
 
     return (
-        <div>
+        <div className="font-poppines">
             <div className='flex min-h-screen'>
                 <div className="w-[300px] border-r-2 ">
                     <div>

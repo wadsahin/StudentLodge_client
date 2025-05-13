@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
-// import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
@@ -8,12 +9,12 @@ import Swal from "sweetalert2";
 import { MdCancelScheduleSend } from "react-icons/md";
 
 const RequestedMeals = () => {
-    // const { user } = useAuth();
+    const { user } = useAuth();
 
     const { refetch, data: meals = [] } = useQuery({
-        queryKey: ['request-meals'],
+        queryKey: ['request-meals-by-user'],
         queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/requested-meals");
+            const res = await axios.get(`http://localhost:5000/requested-meals/${user?.email}`);
             return res.data;
         }
     });
@@ -55,6 +56,14 @@ const RequestedMeals = () => {
 
 
     const columns = [
+         {
+            name: "Image",
+            cell: row => (
+                <>
+                    <img className="w-20 h-14 rounded-md my-2 object-cover" src={row?.meal_img} alt="" />
+                </>
+            )
+        },
         {
             name: 'Title',
             selector: row => row.title,

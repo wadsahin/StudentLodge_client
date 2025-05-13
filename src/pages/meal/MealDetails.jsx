@@ -81,20 +81,6 @@ const MealDetails = () => {
 
     // handle request meal
     const handleRequestMeal = async () => {
-        // console.log("handle request btn click");
-
-        // if (user?.badge == "silver" && user?.badge == "gole" && user?.badge == "platinun") {
-        //     console.log("your can send a meal request")
-        // } else {
-        //     Swal.fire({
-        //         // title: "Good job!",
-        //         text: "You need to purchase a premium package.",
-        //         icon: "warning",
-        //     });
-        //     navigate("/purchase-membership");
-        // }
-        //  const { _id, title, desc, price, ingredients, image, rating, postedTime, likes, reviews_count } = meal;
-        // console.log(user);
 
         if (user) {
             const requestedMeals = {

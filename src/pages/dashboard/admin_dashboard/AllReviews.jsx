@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import DashboardHeading from "../../../components/dashboardHeading";
 import Swal from "sweetalert2";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const AllReviews = () => {
     // const { user } = useAuth();
@@ -73,7 +74,7 @@ const AllReviews = () => {
                     <Link
                         // onClick={() => handleViewMeal(row._id)}
                         to={`/meal/${row.meal_id}`}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                        style={{ background: "green" }} className="btn btn-sm text-white"
                     >
                         view
                     </Link>
@@ -81,14 +82,14 @@ const AllReviews = () => {
             )
         },
         {
-            name: 'Edit',
+            name: 'Update',
             cell: row => (
                 <div>
                     <button
                         onClick={() => handleEdit(row._id)}
-                        className="btn btn-sm btn-warning text-black hover:bg-blue-600 px-3 py-1 rounded"
+                        className="btn btn-sm bg-sky-600 text-white" style={{ background: "oranged" }}
                     >
-                    update
+                        update
                     </button>
                 </div>
             )
@@ -99,9 +100,8 @@ const AllReviews = () => {
                 <div>
                     <button
                         onClick={() => handleDelete(row._id)}
-                        className="btn btn-sm btn-error hover:bg-blue-600 text-white px-3 py-1 rounded"
                     >
-                        X
+                        <AiOutlineDelete color="red" size={22} />
                     </button>
                 </div>
             )

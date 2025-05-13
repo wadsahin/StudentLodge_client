@@ -5,7 +5,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import AddMeal from "../pages/meal/AddMeal";
-import Checkout from "../pages/payment/Checkout";
+import Payment from "../pages/payment/Payment";
 import Meals from "../pages/meal/Meals";
 import Signup from "../pages/auth/Signup";
 import Login from "../pages/auth/Login";
@@ -24,6 +24,7 @@ import AllMeals from "../pages/dashboard/admin_dashboard/AllMeals";
 import ManageUsers from "../pages/dashboard/admin_dashboard/ManageUsers";
 import Membership from "../components/Membership";
 import AdminRoutes from "./AdminRoutes";
+import UpcomingMealsOpen from "../pages/UpcomingMealsOpen";
 
 
 
@@ -50,12 +51,16 @@ const router = createBrowserRouter([
         element: <PrivateRouter><AddMeal /></PrivateRouter>
       },
       {
+        path: "/upcoming-meals",
+        element: <UpcomingMealsOpen /> 
+      },
+      {
         path: "/purchase-membership",
         element: <Membership />
       },
       {
         path: "/checkout/:pkgname",
-        element: <Checkout />
+        element: <Payment />
       },
       {
         path: "/auth/signup",

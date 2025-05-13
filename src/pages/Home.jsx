@@ -9,7 +9,7 @@ import AdminRoutes from "../routes/AdminRoutes";
 const Home = () => {
     const loadedMeals = useLoaderData();
     return (
-        <div>
+        <div className="bg-slate-100">
             <Banner></Banner>
             <MealsCategories loadedMeals={loadedMeals} />
             <Membership />

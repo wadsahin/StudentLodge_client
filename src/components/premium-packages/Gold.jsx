@@ -1,13 +1,13 @@
 
 const Gold = () => {
     return (
-        <div className="card bg-gradient-to-br from-slate-600 to-black text-white rounded-[40px] transition-all -translate-y-5 hover:scale-105 hover:duration-500">
+        <div className="card border border-warning shadow-2xl rounded-none py-5 scale-y-105 shadow-orange-200">
             <div className="card-body p-5">
                 <h2 className="text-center text-4xl font-bold">GOLD</h2>
-                <hr className="border-warning border-2" />
-                <h3 className="text-2xl font-bold text-center"><span className="badge badge-warning badge-lg">TK 4500</span>/Month</h3>
+                <hr className="border" />
+                <h3 className="text-2xl font-bold text-center"><span className="badge badge-warning border-none badge-lg">TK 4500</span>/Month</h3>
                 <div>
-                    <ul className="text-xl my-5">
+                    <ul className="text-lg my-5 space-y-3">
                         <li>✔️Breakfast: Tondul roti + Dim baji</li>
                         <li>✔️Lunch: Rice with chicken + Dal</li>
                         <li>✔️Dinner: Mixed Sobzi</li>
@@ -15,7 +15,7 @@ const Gold = () => {
                     </ul>
                 </div>
                 <div className="card-actions justify-center">
-                    <button className="btn btn-warning font-bold">PURCHASE</button>
+                    <button className="btn btn-warning font-bold border-none">PURCHASE</button>
                 </div>
             </div>
         </div>
