@@ -6,9 +6,9 @@ import MealTab from "./MealTab";
 
 const MealsCategories = ({ loadedMeals: meals }) => {
     const all_meals = meals;
-    const breakfast = meals.filter(meal => meal.category === "breakfast");
-    const lunch = meals.filter(meal => meal.category === "lunch");
-    const dinner = meals.filter(meal => meal.category === "dinner");
+    const breakfast = meals?.filter(meal => meal.category === "breakfast");
+    const lunch = meals?.filter(meal => meal.category === "lunch");
+    const dinner = meals?.filter(meal => meal.category === "dinner");
 
     return (
         <div className="md:mx-20 my-10">

@@ -3,11 +3,13 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CheckoutForm from "./CheckoutForm";
+import Loading from "../../components/spinner/Loading";
 
 const Payment = () => {
     const [amount, setAmount] = useState(0);
     const { pkgname } = useParams();
     console.log(pkgname, amount);
+
 
     useEffect(() => {
         if (pkgname == "silver") {
@@ -18,6 +20,12 @@ const Payment = () => {
             setAmount(5000);
         };
     }, [pkgname]);
+
+    // if amount <= 0
+    if(!amount) {
+        return <Loading />
+    }
+
 
     // Stripe payment gateway intregation start
     // TODO_1: collect pk(pulishable key) from stripe account
@@ -48,7 +56,7 @@ const Payment = () => {
                 {/* <div className="divider"></div> */}
                 <div className="">
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm />
+                        <CheckoutForm totalPrice={amount} />
                     </Elements>
                 </div>
 
