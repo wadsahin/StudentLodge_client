@@ -6,17 +6,18 @@ import { HiOutlineBars3 } from "react-icons/hi2";
 import { IoHomeOutline, IoMailUnreadOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
+import useUser from "../hooks/useUser";
 
 const DashboardNavbar = () => {
     const { user, Logout } = useAuth();
-    const userRole = "admin";
+    const [loggedInUser] = useUser();
     return (
         <div className="navbar bg-base-100 border-b justify-between">
             <div className=" gap-1">
                 <MdDashboard size={26} />
-                <span className="text-3xl font-bold">
+                <span className="text-2xl font-bold">
                     {
-                        userRole === 'admin' ? "Admin Panel" : "User Panel"
+                        loggedInUser?.role === 'admin' ? "Hi, Admin" : "Hi, Student"
                     }
                 </span>
             </div>

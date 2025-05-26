@@ -3,6 +3,8 @@ import SocialLogin from "./SocialLogin";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import Lottie from "lottie-react";
+import login_lottie from "../../assets/login.json"
 
 const Login = () => {
     const { loginWithEmailPassword } = useAuth();
@@ -40,13 +42,14 @@ const Login = () => {
 
     return (
         <div className="bg-base-200 min-h-screen">
-            <h2 className="text-3xl font-bold text-center pt-5 border-b-2 border-warning rounded-lg pb-3 w-fit mx-auto mb-5">Please Login & Enjoy Healthy Meals</h2>
-            <div className="hero-content flex-col items-start md:flex-row-reverse">
+            <h2 className="text-2xl font-bold text-center pt-5 border-b-2 border-warning rounded-lg pb-3 w-fit mx-auto mb-5">Please Login & Enjoy Healthy Meals</h2>
+            <div className="hero-content flex-col items-center md:flex-row-reverse -mt-20">
                 <div className="text-center lg:text-left md:w-1/2 lg:1/3 mt-6">
-                    <SocialLogin></SocialLogin>
+                    <Lottie animationData={login_lottie} />
                 </div>
                 <div className="card w-full max-w-2xl md:w-1/2 lg:1/3">
-                    <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+                    <SocialLogin></SocialLogin>
+                    <form onSubmit={handleSubmit(onSubmit)} className="card-body -mt-5">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
