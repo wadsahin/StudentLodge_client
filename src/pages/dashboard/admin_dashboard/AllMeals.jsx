@@ -56,8 +56,13 @@ const AllMeals = () => {
         {
             name: "Image",
             cell: row => (
-                <>
-                    <img className="w-20 h-14 rounded-md my-2 object-cover" src={row?.image} alt="" />
+                <>  
+                    {
+                        row?.image ? 
+                        <img className="w-20 h-14 rounded-md my-2 object-cover" src={row?.image} alt="" /> : 
+                        row?.imagePath && <img className="w-20 h-14 rounded-md my-2 object-cover" src={`http://localhost:5000/${row?.imagePath}`} alt="" />
+                    }
+                    
                 </>
             )
         },

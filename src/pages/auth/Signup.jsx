@@ -33,7 +33,7 @@ const Signup = () => {
                     profileUpdate({ displayName: name, photoURL: photo })
                         .then(async () => {
                             // Save user in database
-                            const newUser = { name, email, password, photo, role, badge, createdAt };
+                            const newUser = { name, email, photo, role, badge, createdAt };
                             const res = await axios.post("http://localhost:5000/users", newUser);
                             if (res.data?.insertedId) {
                                 // setUser(result?.user);
